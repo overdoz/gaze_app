@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './views/swipeScreen.dart';
 
 void main() {
   runApp(MyApp());
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'Gaze and Touch Detector'),
     );
   }
 }
@@ -97,6 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Spacer(),
             Text(
               'You have pushed the button this many times:',
             ),
@@ -112,7 +114,43 @@ class _MyHomePageState extends State<MyHomePage> {
               onTap: () => print('tapped!'),
               onTapDown: (TapDownDetails details) => _onTapDown(details),
               onTapUp: (TapUpDetails details) => _onTapUp(details),
-            )
+            ),
+            Spacer(),
+            Expanded(
+                child: GestureDetector(
+              child: ListView(
+                padding: const EdgeInsets.all(8),
+                children: <Widget>[
+                  GestureDetector(
+                    child: Container(
+                      height: 50,
+                      color: Colors.amber[600],
+                      child: const Center(child: Text('Entry A')),
+                    ),
+                    onPanStart: (details) {
+                      print(details.globalPosition);
+                    },
+                    onPanUpdate: (details) {
+                      print(details.globalPosition);
+                    },
+                  ),
+                  Container(
+                    height: 50,
+                    color: Colors.amber[500],
+                    child: const Center(child: Text('Entry B')),
+                  ),
+                  Container(
+                    height: 50,
+                    color: Colors.amber[100],
+                    child: const Center(child: Text('Entry C')),
+                  ),
+                ],
+              ),
+              onPanStart: (details) {
+                print(details.globalPosition);
+              },
+            )),
+            Spacer(),
           ],
         ),
       ),
@@ -125,18 +163,34 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   _onTapDown(TapDownDetails details) {
+    var now = new DateTime.now();
     var x = details.globalPosition.dx;
     var y = details.globalPosition.dy;
     // or user the local position method to get the offset
     print(details.localPosition);
-    print("tap down " + x.toString() + ", " + y.toString());
+    print("Time: " +
+        now.toString() +
+        " ------------ tap down ------ " +
+        "X: " +
+        x.toString() +
+        ", " +
+        "Y: " +
+        y.toString());
   }
 
   _onTapUp(TapUpDetails details) {
+    var now = new DateTime.now();
     var x = details.globalPosition.dx;
     var y = details.globalPosition.dy;
     // or user the local position method to get the offset
     print(details.localPosition);
-    print("tap up " + x.toString() + ", " + y.toString());
+    print("Time: " +
+        now.toString() +
+        " ------------ tap up ------ " +
+        "X: " +
+        x.toString() +
+        ", " +
+        "Y: " +
+        y.toString());
   }
 }
