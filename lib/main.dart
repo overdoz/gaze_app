@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './views/swipeScreen.dart';
+import './widgets/swipeScreen.dart';
 
 void main() {
   runApp(MyApp());
